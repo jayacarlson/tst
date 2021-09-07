@@ -17,8 +17,8 @@ import (
 */
 
 // Tests use this type, returning the name of the test and the result (Failed as TRUE)
-type TestFunc func() (testName string, testResult bool)
-type TestTFunc func(t *testing.T) (testName string, testResult bool)
+type TestFunc func() (testName, description string, testResult bool)
+type TestTFunc func(t *testing.T) (testName, description string, testResult bool)
 
 var (
 	initFunc                  func() // setable function to run before each test
@@ -72,7 +72,7 @@ func Test(t *testing.T, test TestFunc) bool {
 	initFunc()
 	defer finiFunc()
 	st := time.Now()
-	o, f := test()
+	o, d, f := test()
 	elapsed := time.Now().Sub(st)
 	if o == "" {
 		fl, ln := dbg.ErrWasAt()
@@ -81,7 +81,7 @@ func Test(t *testing.T, test TestFunc) bool {
 	if f {
 		Failed(t, o, "%15s: %s", elapsed.String(), o)
 	} else {
-		Passed(t, o, "%15s: %s", elapsed.String(), o)
+		Passed(t, o, "%15s: %s %s", elapsed.String(), o, d)
 	}
 	return f
 }
@@ -91,7 +91,7 @@ func TestT(t *testing.T, test TestTFunc) bool {
 	initFunc()
 	defer finiFunc()
 	st := time.Now()
-	o, f := test(t)
+	o, d, f := test(t)
 	elapsed := time.Now().Sub(st)
 	if o == "" {
 		fl, ln := dbg.ErrWasAt()
@@ -100,7 +100,7 @@ func TestT(t *testing.T, test TestTFunc) bool {
 	if f {
 		Failed(t, o, "%15s: %s", elapsed.String(), o)
 	} else {
-		Passed(t, o, "%15s: %s", elapsed.String(), o)
+		Passed(t, o, "%15s: %s %s", elapsed.String(), o, d)
 	}
 	return f
 }
