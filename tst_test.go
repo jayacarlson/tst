@@ -19,34 +19,33 @@ func finiFunction() {
 	finiCount += 1
 }
 
-func testEnabledPassed1() (string, bool) {
+func testEnabledPassed1() (string, string, bool) {
 	// do some kind of test
-	return dbg.IAm(), false // result is "Failed", so false
+	return dbg.IAm(), "", false // result is "Failed", so false
 }
 
-func testEnabledPassed2() (string, bool) {
-	return dbg.IAm(), false // result is "Failed", so false
+func testEnabledPassed2() (string, string, bool) {
+	return dbg.IAm(), "", false // result is "Failed", so false
 }
 
-func testEnabledPassed3() (string, bool) {
-	return dbg.IAm(), false // result is "Failed", so false
+func testEnabledPassed3() (string, string, bool) {
+	return dbg.IAm(), "", false // result is "Failed", so false
 }
 
-func testEnabledFailed() (string, bool) {
-	return dbg.IAm(), true // result is "Failed"
+func testEnabledFailed() (string, string, bool) {
+	return dbg.IAm(), "", true // result is "Failed"
 }
 
-func testDisabled() (string, bool) {
-	return dbg.IAm(), true // should not get here
+func testDisabled() (string, string, bool) {
+	return dbg.IAm(), "", true // should not get here
 }
 
-func testCounts() (string, bool) {
+func testCounts() (string, string, bool) {
 	failed := false
 	failed = dbg.ChkTru(initCount == 3, "initFunction count incorrect") || failed
 	failed = dbg.ChkTru(finiCount == 3, "finiFunction count incorrect") || failed
-	return dbg.IAm(), failed
+	return dbg.IAm(), "", failed
 }
-
 
 func TestTheEnabledTests(t *testing.T) {
 	SetInitFunc(initFunction)

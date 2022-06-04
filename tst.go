@@ -13,7 +13,7 @@ import (
 )
 
 /*
-	Some functions useful for test routines
+	Some functions useful for testing routines
 */
 
 // Tests use this type, returning the name of the test and the result (Failed as TRUE)
@@ -49,7 +49,7 @@ func ResetTestWrappers() {
 // output "Testing" or "Ignore" for given test, just returns the given bool
 func Testing(testName, description string, enabled bool) bool {
 	if enabled {
-		fmt.Printf(testClr+"  Testing "+normClr+" %-20s %s\n", testName, description)
+		fmt.Printf(testClr+" Testing  "+normClr+" %-20s %s\n", testName, description)
 	} else {
 		fmt.Printf(skipClr+"  Ignore  "+normClr+" %-20s %s\n", testName, description)
 	}
