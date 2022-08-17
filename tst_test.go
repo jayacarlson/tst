@@ -51,28 +51,28 @@ func TestTheEnabledTests(t *testing.T) {
 	SetInitFunc(initFunction)
 	SetFiniFunc(finiFunction)
 	if Testing(dbg.IAm(), "Should see 3 successful tests", true) {
-		Test(t, testEnabledPassed1)
-		Test(t, testEnabledPassed2)
-		Test(t, testEnabledPassed3)
+		Func(t, testEnabledPassed1)
+		Func(t, testEnabledPassed2)
+		Func(t, testEnabledPassed3)
 	}
 	ResetTestWrappers()
 }
 
 func TestCounts(t *testing.T) {
 	if Testing(dbg.IAm(), "", true) {
-		Test(t, testCounts)
+		Func(t, testCounts)
 	}
 }
 
 func TestIgnored(t *testing.T) {
 	if Testing(dbg.IAm(), "Should see 'Ignored'", false) {
-		Test(t, testDisabled)
+		Func(t, testDisabled)
 	}
 }
 
 func TestFailedTest(t *testing.T) {
 	if Testing(dbg.IAm(), "Should see a 'Failed' test", true) {
-		Test(t, testEnabledFailed)
+		Func(t, testEnabledFailed)
 	}
 }
 
